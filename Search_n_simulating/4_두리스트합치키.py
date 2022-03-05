@@ -18,17 +18,19 @@ lst2 = list(map(int, input().split()))
 
 lst = []
 i, j = 0, 0
-for _ in range(n+m):
+
+while i < n and j < m:
     if lst1[i] <= lst2[j]:
         lst.append(lst1[i])
         i += 1
-        if i >= n:
-            lst = lst + lst2[j:]
-            break
     else:
         lst.append(lst2[j])
         j += 1
-        if j >= m:
-            lst = lst + lst1[i:]
-            break
+
+if i < n:
+    lst = lst + lst1[i:]
+if j < m:
+    lst = lst + lst2[j:]
+
 print(lst)
+
