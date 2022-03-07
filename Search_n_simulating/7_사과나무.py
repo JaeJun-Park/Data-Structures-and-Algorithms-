@@ -10,13 +10,21 @@ farm = [list(map(int, input().split())) for _ in range(n)]
 
 num_of_apple = 0
 
+# for i in range(n):
+#     if i <= n//2:
+#         num_of_apple += sum(farm[i][n//2-i:n//2+i+1])
+#     else:  # 3 4   n//2 is 2
+#         num_of_apple += sum(farm[i][i-n//2: n//2-i])
+
+s, e = n//2, n//2+1
 
 for i in range(n):
+    num_of_apple += sum(farm[i][s:e])
     if i < n//2:
-        num_of_apple += sum(farm[i][n//2-i:n//2+i+1])
-    elif i == n//2:
-        num_of_apple += sum(farm[i][:])
-    else:  # 3 4   n//2 is 2
-        num_of_apple += sum(farm[i][i-n//2: n//2-i])
+        s -= 1
+        e += 1
+    else:
+        s += 1
+        e -= 1
 
 print(num_of_apple)
