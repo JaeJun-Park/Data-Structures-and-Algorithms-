@@ -3,16 +3,23 @@ import sys
 from unittest import makeSuite
 
 
-def dvdorder(musics, dvd_size):
+def divideDvd(musics, dvd_size):
     num_dvd = 0
 
-    lt = 0
-    for rt in range(1, len(musics)):
-        mins = sum(musics[lt:rt])
-        if mins >= dvd_size:
+    # if lt < rt:
+    #     num_dvd += 1
+    lt, rt = 0, 1
+    while rt <= len(musics):
+        tot = sum(musics[lt:rt])
+        if tot > dvd_size:
+            num_dvd += 1
+            lt = rt-1
+        elif tot == dvd_size:
             num_dvd += 1
             lt = rt
-
+            rt += 1
+        else:
+            rt += 1
     if lt < rt:
         num_dvd += 1
 
@@ -24,20 +31,21 @@ sys.stdin = open("binary_and_greedy/3.txt", "rt")
 
 n, m = map(int, input().split())
 musics = list(map(int, input().split()))
-musics.sort(reverse=True)
+
+# <------------ test ------------------------>
 
 
 # <------------ main logic --------------->
 lt = max(musics)
 rt = sum(musics)
 
-while lt <= rt:
+while lt < rt:
     dvd_size = (lt+rt)//2
-    num_dvd = dvdorder(musics, dvd_size)
+    num_dvd = divideDvd(musics, dvd_size)
     if num_dvd > m:
         lt = dvd_size + 1
     elif num_dvd <= m:
-        rt = dvd_size - 1
+        rt = dvd_size
 
 
 print(dvd_size)
