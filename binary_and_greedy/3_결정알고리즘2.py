@@ -26,6 +26,19 @@ def divideDvd(musics, dvd_size):
     return num_dvd
 
 
+def divideDvd2(musics, dvd_size):
+    cnt = 1
+    sum = 0
+    for x in musics:
+        if sum + x > dvd_size:
+            cnt += 1
+            sum = x
+        else:
+            sum += x
+
+    return cnt
+
+
 # <-------------- input ----------------->
 sys.stdin = open("binary_and_greedy/3.txt", "rt")
 
@@ -41,11 +54,11 @@ rt = sum(musics)
 
 while lt < rt:
     dvd_size = (lt+rt)//2
-    num_dvd = divideDvd(musics, dvd_size)
+    num_dvd = divideDvd2(musics, dvd_size)
     if num_dvd > m:
         lt = dvd_size + 1
     elif num_dvd <= m:
         rt = dvd_size
 
 
-print(dvd_size)
+print(rt)
